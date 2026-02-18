@@ -1,5 +1,5 @@
 """
-Comandos CLI para o RSL Progress Tracker.
+Comandos CLI para o PhD Progress Tracker.
 """
 
 import uuid
@@ -13,10 +13,10 @@ from rich.progress import Progress, BarColumn, TextColumn
 from rich.layout import Layout
 from rich import box
 
-from rsl_progress_tracker.models.task import Task, TaskStatus, TaskPriority
-from rsl_progress_tracker.models.milestone import Milestone
-from rsl_progress_tracker.utils.database import Database
-from rsl_progress_tracker.utils.date_helper import (
+from phd_progress_tracker.models.task import Task, TaskStatus, TaskPriority
+from phd_progress_tracker.models.milestone import Milestone
+from phd_progress_tracker.utils.database import Database
+from phd_progress_tracker.utils.date_helper import (
     format_days_remaining,
     parse_date_input,
 )
@@ -44,8 +44,8 @@ def add_task(
     Adiciona nova tarefa ao tracker.
 
     Exemplos:
-        rsl add "Revisar literatura" --deadline 2026-03-01 --category "RSL"
-        rsl add "Análise de dados" --deadline +14d --priority HIGH
+        phd add "Revisar literatura" --deadline 2026-03-01 --category "PhD"
+        phd add "Análise de dados" --deadline +14d --priority HIGH
     """
     try:
         deadline_date = parse_date_input(deadline)
@@ -97,7 +97,7 @@ def list_tasks(
         return
 
     # Criar tabela
-    table = Table(title="📋 Tarefas da RSL", box=box.ROUNDED)
+    table = Table(title="📋 Tarefas do PhD", box=box.ROUNDED)
     table.add_column("ID", style="cyan", no_wrap=True)
     table.add_column("Título", style="white")
     table.add_column("Categoria", style="magenta")
@@ -169,7 +169,7 @@ def show_dashboard():
     # Header
     layout["header"].update(
         Panel(
-            "[bold cyan]RSL Progress Tracker[/bold cyan] 📊",
+            "[bold cyan]PhD Progress Tracker[/bold cyan] 📊",
             subtitle=f"Data: {date.today().strftime('%d/%m/%Y')}",
         )
     )

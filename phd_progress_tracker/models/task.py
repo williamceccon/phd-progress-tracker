@@ -1,5 +1,5 @@
 """
-Modelos de dados para tarefas e marcos da RSL.
+Modelos de dados para tarefas e marcos da PhD.
 """
 
 from dataclasses import dataclass, field
@@ -29,7 +29,7 @@ class TaskPriority(Enum):
 @dataclass
 class Task:
     """
-    Representa uma tarefa da RSL.
+    Representa uma tarefa da PhD.
 
     Attributes:
         id: Identificador único da tarefa

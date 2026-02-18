@@ -1,6 +1,6 @@
-# RSL Progress Tracker 🎓
+# PhD Progress Tracker 🎓
 
-Gerenciador CLI de tarefas, prazos e progresso para dissertação de RSL (Revisão Sistemática de Literatura).
+Gerenciador CLI de tarefas, prazos e progresso para tese de PhD (Doutorado).
 
 ## Features
 
@@ -21,8 +21,8 @@ Gerenciador CLI de tarefas, prazos e progresso para dissertação de RSL (Revis�
 
 ```bash
 # Clonar repositório
-git clone git@github.com:williamceccon/rsl-progress-tracker.git
-cd rsl-progress-tracker
+git clone git@github.com:williamceccon/phd-progress-tracker.git
+cd phd-progress-tracker
 
 # Configurar Python
 pyenv local 3.12.0

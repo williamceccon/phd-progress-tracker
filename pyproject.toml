@@ -1,5 +1,5 @@
 [project]
-name = "rsl-progress-tracker"
+name = "phd-progress-tracker"
 version = "0.1.0"
 description = ""
 authors = [
@@ -14,7 +14,6 @@ dependencies = [
 ]
 
 [tool.poetry]
-packages = [{include = "rsl_progress_tracker", from = "src"}]
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
@@ -29,4 +28,4 @@ dev = [
 ]
 
 [tool.poetry.scripts]
-rsl = "rsl_progress_tracker.main:app"
+phd = "phd_progress_tracker.main:app"

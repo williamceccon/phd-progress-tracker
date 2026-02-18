@@ -5,8 +5,8 @@ Gerenciamento de persistência de dados em JSON.
 import json
 from pathlib import Path
 from typing import List
-from rsl_progress_tracker.models.task import Task
-from rsl_progress_tracker.models.milestone import Milestone
+from phd_progress_tracker.models.task import Task
+from phd_progress_tracker.models.milestone import Milestone
 
 
 class Database:

@@ -2,7 +2,7 @@
 Funções auxiliares para manipulação de datas.
 """
 
-from datetime import date, timedelta
+from datetime import datetime, date, timedelta
 from typing import Tuple
 
 
@@ -58,5 +58,3 @@ def parse_date_input(date_str: str) -> date:
 
     raise ValueError(f"Formato de data inválido: {date_str}")
 
-
-poe
