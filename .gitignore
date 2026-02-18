@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Poetry
+.venv/
+dist/
+build/
+*.egg-info/
+
+# Dados locais
+data/
+*.json
+
+# IDEs
+.vscode/
+.idea/
+
+# macOS
+.DS_Store
+
+# Testes
+.pytest_cache/
+.coverage
+
