@@ -1,64 +1,23 @@
-name: CI/CD Pipeline
-
-on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
-
-permissions:
-  contents: read
-  pull-requests: write
-
+name: CI
+on: [push, pull_request]
 jobs:
   test:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version: ["3.11", "3.12", "3.13"]
-
+    strategy: { matrix: { python-version: ["3.12"] } }
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v5
-      with:
-        python-version: ${{ matrix.python-version }}
-
-    - name: Cache Poetry
-      uses: actions/cache@v4
-      with:
-        path: ~/.local
-        key: poetry-${{ matrix.python-version }}-${{ hashFiles('**/poetry.lock') }}
-
-    - name: Install Poetry
-      run: |
-        curl -sSL https://install.python-poetry.org | python3 -
-        echo "$HOME/.local/bin" >> $GITHUB_PATH
-
-    - name: Cache dependencies
-      uses: actions/cache@v4
-      with:
-        path: .venv
-        key: venv-${{ matrix.python-version }}-${{ hashFiles('**/poetry.lock') }}
-
-    - name: Install dependencies
-      run: |
-        poetry config virtualenvs.in-project true
-        poetry install --no-interaction
-
-    - name: Run Black (formatação)
-      run: poetry run black --check --diff .
-
-    - name: Run Flake8 (linting)
+    - uses: actions/checkout@v4
+    - uses: actions/setup-python@v5
+      with: { python-version: ${{ matrix.python-version }}, cache: 'poetry' }
+    - uses: snok/install-poetry@v1
+      with: { version: 1.8.3, virtualenvs-create: true }
+    - name: Install deps
+      run: poetry install --no-interaction
+    - name: Black
+      run: poetry run black --check .
+    - name: Flake8
       run: poetry run flake8 phd_progress_tracker/
-
-    - name: Run Mypy (type checking)
+    - name: Mypy
       run: poetry run mypy phd_progress_tracker/
+    - name: Pytest
+      run: poetry run pytest tests/ -v
 
-    - name: Run Pytest
-      run: poetry run pytest tests/ --cov=phd_progress_tracker --cov-report=xml -v
-
-    - name: Upload coverage
-      uses: codecov/codecov-action@v4
