@@ -69,8 +69,7 @@ def add_task(
     db.save_tasks(tasks)
 
     console.print(
-        f"[green]✓[/green] Tarefa '{title}' 
-        adicionada com sucesso! (ID: {task.id})"
+        f"[green]✓[/green] Tarefa '{title}' adicionada com sucesso! (ID: {task.id})"
     )
 
 
@@ -206,8 +205,7 @@ def show_dashboard():
 
         for task in urgent_tasks:
             days_text, color = format_days_remaining(task.days_remaining())
-            urgent_table.add_row(
-                task.title, f"[{color}]{days_text}[/{color}]")
+            urgent_table.add_row(task.title, f"[{color}]{days_text}[/{color}]")
 
         layout["urgent"].update(Panel(urgent_table, title="⚠️  Tarefas Urgentes"))
     else:
