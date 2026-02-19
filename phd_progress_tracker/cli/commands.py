@@ -9,7 +9,7 @@ import typer
 from rich.console import Console
 from rich.table import Table
 from rich.panel import Panel
-from rich.progress import Progress, BarColumn, TextColumn
+from rich.progress import Progress
 from rich.layout import Layout
 from rich import box
 
@@ -29,7 +29,8 @@ db = Database()
 @app.command("add")
 def add_task(
     title: str = typer.Argument(..., help="Título da tarefa"),
-    description: str = typer.Option("", "--desc", "-d", help="Descrição da tarefa"),
+    description: str = typer.Option(
+        "", "--desc", "-d", help="Descrição da tarefa"),
     deadline: str = typer.Option(
         ..., "--deadline", "-dl", help="Data limite (YYYY-MM-DD ou +Nd)"
     ),
@@ -68,7 +69,8 @@ def add_task(
     db.save_tasks(tasks)
 
     console.print(
-        f"[green]✓[/green] Tarefa '{title}' adicionada com sucesso! (ID: {task.id})"
+        f"[green]✓[/green] Tarefa '{title}' 
+        adicionada com sucesso! (ID: {task.id})"
     )
 
 
@@ -204,7 +206,8 @@ def show_dashboard():
 
         for task in urgent_tasks:
             days_text, color = format_days_remaining(task.days_remaining())
-            urgent_table.add_row(task.title, f"[{color}]{days_text}[/{color}]")
+            urgent_table.add_row(
+                task.title, f"[{color}]{days_text}[/{color}]")
 
         layout["urgent"].update(Panel(urgent_table, title="⚠️  Tarefas Urgentes"))
     else:
