@@ -11,29 +11,27 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
     
-    - name: Setup Python ${{ matrix.python-version }}
+    - name: Setup Python
       uses: actions/setup-python@v5
       with:
         python-version: ${{ matrix.python-version }}
-        cache: 'poetry'
     
-    - name: Install Poetry
-      uses: snok/install-poetry@v1
-      with:
-        version: 1.8.3
-        virtualenvs-create: true
+    - name: Install Poetry manually
+      run: |
+        curl -sSL https://install.python-poetry.org | python3 -
+        echo "$HOME/.local/bin" >> $GITHUB_PATH
     
-    - name: Install dependencies
+    - name: Install project dependencies
       run: poetry install --no-interaction
     
-    - name: Black formatting
+    - name: Black (formatação)
       run: poetry run black --check .
     
-    - name: Flake8 linting
+    - name: Flake8 (linting)
       run: poetry run flake8 phd_progress_tracker/
     
-    - name: Mypy type check
+    - name: Mypy (types)
       run: poetry run mypy phd_progress_tracker/
     
-    - name: Pytest tests
+    - name: Pytest (testes)
       run: poetry run pytest tests/ -v
