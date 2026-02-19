@@ -1,5 +1,9 @@
 # PhD Progress Tracker 🎓
 
+[![CI](https://github.com/williamceccon/phd-progress-tracker/workflows/CI/CD%20Pipeline/badge.svg)](https://github.com/williamceccon/phd-progress-tracker/actions)
+[![Coverage](https://codecov.io/gh/williamceccon/phd-progress-tracker/graph/badge.svg)](https://codecov.io/gh/williamceccon/phd-progress-tracker)
+[![License](https://img.shields.io/github/license/williamceccon/phd-progress-tracker)](LICENSE)
+
 Gerenciador CLI de tarefas, prazos e progresso para tese de PhD (Doutorado).
 
 ## Features
