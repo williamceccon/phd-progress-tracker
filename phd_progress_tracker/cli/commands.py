@@ -29,8 +29,7 @@ db = Database()
 @app.command("add")
 def add_task(
     title: str = typer.Argument(..., help="Título da tarefa"),
-    description: str = typer.Option(
-        "", "--desc", "-d", help="Descrição da tarefa"),
+    description: str = typer.Option("", "--desc", "-d", help="Descrição da tarefa"),
     deadline: str = typer.Option(
         ..., "--deadline", "-dl", help="Data limite (YYYY-MM-DD ou +Nd)"
     ),
