@@ -30,3 +30,8 @@ dev = [
 
 [tool.poetry.scripts]
 phd = "phd_progress_tracker.main:app"
+
+[tool.flake8]
+max-line-length = 120
+extend-ignore = ["E501"]
+
