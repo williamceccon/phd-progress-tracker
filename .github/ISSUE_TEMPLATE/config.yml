@@ -1,0 +1,18 @@
+blank_issues_enabled: false
+contact_links:
+  - name: "❓ Questions / Help"
+    url: https://github.com/williamceccon/phd-progress-tracker/discussions
+    about: "Perguntas gerais sobre o projeto"
+
+contact_links:
+  - name: "🐛 Bug Report"
+    url: https://github.com/williamceccon/phd-progress-tracker/issues/new?template=bug.md
+    about: "Relatar um bug"
+
+  - name: "🚀 Feature Request"
+    url: https://github.com/williamceccon/phd-progress-tracker/issues/new?template=feature.md
+    about: "Solicitar nova funcionalidade"
+
+  - name: "📚 Documentation"
+    url: https://github.com/williamceccon/phd-progress-tracker/issues/new?template=docs.md
+    about: "Melhorias na documentação"
