@@ -52,13 +52,13 @@ jobs:
       run: poetry run black --check --diff .
 
     - name: Run Flake8 (linting)
-      run: poetry run flake8 rsl_progress_tracker/
+      run: poetry run flake8 phd_progress_tracker/
 
     - name: Run Mypy (type checking)
-      run: poetry run mypy rsl_progress_tracker/
+      run: poetry run mypy phd_progress_tracker/
 
     - name: Run Pytest
-      run: poetry run pytest tests/ --cov=rsl_progress_tracker --cov-report=xml -v
+      run: poetry run pytest tests/ --cov=phd_progress_tracker --cov-report=xml -v
 
     - name: Upload coverage
       uses: codecov/codecov-action@v4
