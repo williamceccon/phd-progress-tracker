@@ -26,9 +26,9 @@ jobs:
     
     - name: Black (formatação)
       run: poetry run black --check .
-    
+
     - name: Flake8 (linting)
-      run: poetry run flake8 phd_progress_tracker/
+      run: poetry run flake8 phd_progress_tracker/ --config=pyproject.toml
     
     - name: Mypy (types)
       run: poetry run mypy phd_progress_tracker/
