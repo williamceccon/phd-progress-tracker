@@ -1,4 +1,5 @@
 """Entry point principal do PhD Progress Tracker."""
+
 import typer
 from phd_progress_tracker.cli.commands import app as cli_app
 

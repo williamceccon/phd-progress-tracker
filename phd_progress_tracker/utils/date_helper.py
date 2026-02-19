@@ -57,4 +57,3 @@ def parse_date_input(date_str: str) -> date:
             continue
 
     raise ValueError(f"Formato de data inválido: {date_str}")
-
