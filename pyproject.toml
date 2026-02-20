@@ -14,6 +14,8 @@ dependencies = [
 ]
 
 [tool.poetry]
+name = "phd-progress-tracker"
+version = "0.1.0"   # ← versão atual
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
