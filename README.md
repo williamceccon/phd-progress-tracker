@@ -1,40 +1,34 @@
-# PhD Progress Tracker 🎓
+# 🎓 PHD Progress Tracker
 
-[![CI](https://github.com/williamceccon/phd-progress-tracker/workflows/CI/CD%20Pipeline/badge.svg)](https://github.com/williamceccon/phd-progress-tracker/actions)
-[![Coverage](https://codecov.io/gh/williamceccon/phd-progress-tracker/graph/badge.svg)](https://codecov.io/gh/williamceccon/phd-progress-tracker)
-[![License](https://img.shields.io/github/license/williamceccon/phd-progress-tracker)](LICENSE)
+> CLI para gerenciamento de objetivos e prazos da dissertação de doutorado.
 
-Gerenciador CLI de tarefas, prazos e progresso para tese de PhD (Doutorado).
+[![CI](https://github.com/williamceccon/phd-progress-tracker/actions/workflows/ci.yml/badge.svg)](https://github.com/williamceccon/phd-progress-tracker/actions)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Python 3.12](https://img.shields.io/badge/python-3.12-blue.svg)](https://python.org)
 
-## Features
+## 📋 Sobre
+Aplicação CLI para rastrear progresso da RSL e dissertação,
+com prazos, contagem regressiva e dashboard visual.
 
-- ✅ Adicionar e gerenciar tarefas com prazos
-- 📊 Dashboard visual com estatísticas
-- 🎯 Marcos importantes (qualificação, defesa, etc)
-- ⏰ Contagem regressiva automática
-- 🚨 Alertas para tarefas urgentes
-- 💾 Persistência local em JSON
-
-## Instalação
-
-### Requisitos
-- Python 3.12+
-- Poetry
-
-### Setup
-
-```bash
-# Clonar repositório
-git clone git@github.com:williamceccon/phd-progress-tracker.git
+## ⚙️ Instalação
+\```bash
+git clone https://github.com/williamceccon/phd-progress-tracker
 cd phd-progress-tracker
-
-# Configurar Python
-pyenv local 3.12.0
-
-# Instalar dependências
 poetry install
+\```
 
-# Ativar ambiente
-poetry shell
+## 🚀 Uso
+\```bash
+poetry run phd --help       # Lista comandos
+poetry run phd add          # Adiciona tarefa
+poetry run phd list         # Lista tarefas
+poetry run phd edit <id>    # Edita tarefa
+\```
 
-# teste
+## 🧪 Testes
+\```bash
+poetry run pytest tests/ -v
+\```
+
+## 📄 Licença
+MIT © 2026 William Ceccon
