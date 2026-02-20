@@ -2,6 +2,7 @@
 
 > CLI profissional para rastreamento de tarefas, prazos e marcos do doutorado.
 
+![Coverage](https://codecov.io/gh/<user>/<repo>/badge.svg)
 [![CI](https://github.com/williamceccon/phd-progress-tracker/actions/workflows/ci.yml/badge.svg)](https://github.com/williamceccon/phd-progress-tracker/actions)
 [![codecov](https://codecov.io/github/williamceccon/phd-progress-tracker/graph/badge.svg?token=4O3ZS4D9BA)](https://codecov.io/github/williamceccon/phd-progress-tracker)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
