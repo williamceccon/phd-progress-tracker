@@ -52,7 +52,16 @@ jobs:
             --no-strict-optional
         continue-on-error: true
 
-      - name: Pytest
-        run: poetry run pytest tests/ -v --tb=short --cov=phd_progress_tracker
+      - name: Pytest + Coverage
+        run: poetry run pytest tests/ -v --tb=short
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./coverage.xml
+          fail_ci_if_error: false
+          verbose: true
+
 
 
