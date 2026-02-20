@@ -1,6 +1,5 @@
 # 🎓 PHD Progress Tracker
 
-> CLI para gerenciamento de objetivos e prazos da dissertação de doutorado.
 
 [![CI](https://github.com/williamceccon/phd-progress-tracker/actions/workflows/ci.yml/badge.svg)](https://github.com/williamceccon/phd-progress-tracker/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
