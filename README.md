@@ -37,3 +37,4 @@ poetry install
 # Ativar ambiente
 poetry shell
 
+# teste
