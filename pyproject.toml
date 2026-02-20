@@ -35,3 +35,9 @@ phd = "phd_progress_tracker.main:app"
 max-line-length = 120
 extend-ignore = ["E501"]
 
+[tool.pytest.ini_options]
+addopts = "--cov=phd_progress_tracker --cov-report=xml --cov-report=term-missing"
+
+[tool.coverage.run]
+source = ["phd_progress_tracker"]
+omit = ["tests/*"]
