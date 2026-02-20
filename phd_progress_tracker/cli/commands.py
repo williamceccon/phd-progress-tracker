@@ -128,6 +128,56 @@ def list_tasks(
     console.print(table)
 
 
+@app.command("edit")
+def edit_task(
+    task_id: str = typer.Argument(..., help="ID da tarefa"),
+    title: Optional[str] = typer.Option(
+        None, "--title", "-t", help="Novo título da tarefa"
+    ),
+    deadline: Optional[str] = typer.Option(
+        None, "--deadline", "-d", help="Nova data limite (YYYY-MM-DD ou +Nd)"
+    ),
+):
+    """
+    Edita o título e/ou prazo de uma tarefa existente.
+
+    Exemplos:
+        phd edit <ID> --title "Novo Título"
+        phd edit <ID> --deadline "2026-06-30"
+        phd edit <ID> -t "Revisar Cap. 3" -d "+7d"
+    """
+    tasks = db.load_tasks()
+    task_found = next((t for t in tasks if t.id == task_id), None)
+
+    if not task_found:
+        console.print(f"[red]Tarefa com ID '{task_id}' não encontrada.[/red]")
+        raise typer.Exit(1)
+
+    updated_fields = []
+    if title is not None:
+        task_found.title = title
+        updated_fields.append("título")
+
+    if deadline is not None:
+        try:
+            new_deadline_date = parse_date_input(deadline)
+            task_found.deadline = new_deadline_date
+            updated_fields.append("prazo")
+        except ValueError as e:
+            console.print(f"[red]Erro ao processar o prazo: {e}[/red]")
+            raise typer.Exit(1)
+
+    if not updated_fields:
+        console.print("[yellow]Nenhum campo para atualizar foi fornecido.[/yellow]")
+        raise typer.Exit(0)
+
+    db.save_tasks(tasks)
+    console.print(
+        f"[green]✓[/green] Tarefa '{task_found.id}' atualizada com sucesso! "
+        f"Campos alterados: {', '.join(updated_fields)}."
+    )
+
+
 @app.command("complete")
 def complete_task(task_id: str = typer.Argument(..., help="ID da tarefa")):
     """Marca tarefa como concluída."""
