@@ -2,7 +2,8 @@
 
 [![CI](https://github.com/williamceccon/phd-progress-tracker/workflows/CI/CD%20Pipeline/badge.svg)](https://github.com/williamceccon/phd-progress-tracker/actions)
 [![Coverage](https://codecov.io/gh/williamceccon/phd-progress-tracker/graph/badge.svg)](https://codecov.io/gh/williamceccon/phd-progress-tracker)
-[![License](https://img.shields.io/github/license/williamceccon/phd-progress-tracker)](LICENSE)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
 
 Gerenciador CLI de tarefas, prazos e progresso para tese de PhD (Doutorado).
 
