@@ -53,7 +53,6 @@ jobs:
         continue-on-error: true
 
       - name: Pytest
-        run: |
-          poetry run pytest tests/ -v --tb=short || \
-          { code=$?; [ $code -eq 5 ] && echo "Sem testes — OK" && exit 0 || exit $code; }
+        run: poetry run pytest tests/ -v --tb=short --cov=phd_progress_tracker
+
 
