@@ -34,7 +34,9 @@ PhD progress tracker — migrating from Typer CLI to SaaS Web platform.
 - Never break existing CLI while web layer is being built (parallel support)
 
 ## What NOT to do
-- Never commit directly to `main`
+- Never push directly to `main` — branch protection is enabled
+- Always create a branch before starting any work: `type/short-description`
+- Always open a PR to merge into main — CI must pass before merging
 - Never skip tests
 - Never add dependencies without updating `pyproject.toml`
 - Never expose secrets in code or commits
