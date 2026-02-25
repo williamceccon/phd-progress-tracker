@@ -1,6 +1,6 @@
 ---
 description: Reviews code against project standards and writes REVIEW_REPORT.md. Never edits source files.
-mode: subagent
+mode: all
 temperature: 0.1
 permission:
   bash: allow

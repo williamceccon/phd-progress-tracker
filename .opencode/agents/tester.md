@@ -1,6 +1,6 @@
 ---
 description: Writes and runs tests based on SPEC.md, analyzes coverage, writes TEST_REPORT.md.
-mode: subagent
+mode: all
 temperature: 0.1
 permission:
   bash: allow

@@ -1,6 +1,6 @@
 ---
 description: Implements code following project standards in AGENTS.md and SPEC.md. Use after /spec.
-mode: subagent
+mode: all
 temperature: 0.2
 permission:
   bash: ask

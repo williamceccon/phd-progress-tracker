@@ -1,6 +1,6 @@
 ---
 description: Analyzes codebase, researches patterns, and creates PRD.md. Never modifies source files. Use as first step of any feature.
-mode: subagent
+mode: all
 temperature: 0.1
 permission:
   bash: ask

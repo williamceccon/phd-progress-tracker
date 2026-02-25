@@ -1,2 +1,4 @@
 node_modules
 coverage.xml
+package.json
+bun.lock
