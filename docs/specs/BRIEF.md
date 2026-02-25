@@ -1,77 +1,61 @@
-# BRIEF — Coverage 100% and Codecov Badge
+BRIEF — SQLite Migration
 Date: 2026-02-25
-Slug: coverage-and-badge
+Slug: sqlite-migration
 
----
+What I want
+Replace the current local JSON storage with a SQLite database, keeping the CLI working exactly as it does today. After this feature is done, no JSON files should be used for data persistence.
 
-## What I want
-Reach 100% test coverage by adding `# pragma: no cover` to main.py line 26,
-integrate Codecov into the GitHub Actions CI pipeline, and display the
-Codecov badge in README.md.
+Why it matters
+The local JSON storage is a bottleneck for the next phase of the project, which involves building a REST API. SQLite is the natural migration step: it's still local, serverless, free, and fully compatible with the upcoming FastAPI layer.
 
----
+Context
+Current persistence layer lives in phd_progress_tracker/utils/database.py
 
-## Why it matters
-The project sits at 99% coverage due to a single untestable line
-(`if __name__ == "__main__"`). Closing this gap makes the coverage
-contract explicit, adds a visible quality signal to the repository,
-and establishes the Codecov integration before more complex features
-are added. A coverage badge is also a strong portfolio signal.
+Existing models: phd_progress_tracker/models/task.py and phd_progress_tracker/models/milestone.py
 
----
+CLI commands are in phd_progress_tracker/cli/commands.py
 
-## Context
-- `phd_progress_tracker/main.py` line 26 has `if __name__ == "__main__"` —
-  the only uncovered line
-- CI/CD is configured at `.github/workflows/ci.yml` with pytest, flake8,
-  black and mypy — currently missing `--cov` flags in the pytest step
-- The pytest step does not generate `coverage.xml` yet — must be added
-- README.md exists but has no badges
-- `coverage.xml` is already in `.gitignore` — correct, it is generated
-  at runtime by pytest in the CI runner
-- Codecov account needs to be created at codecov.io and connected
-  to the GitHub repository
+Data is currently stored in local .json files (see utils/database.py for the exact structure)
 
----
+Project uses Poetry and has 72 tests with 100% coverage
 
-## Constraints
-- Must not modify any test logic or source behavior
-- `# pragma: no cover` must be used only on the `if __name__ == "__main__"` line
-- CI/CD pipeline must remain green after all changes
-- No new runtime dependencies — Codecov is CI-only (codecov-action)
-- pytest step in ci.yml must generate coverage.xml for the Codecov upload
-  step that already exists in the workflow
+Constraints
+No CLI command may change its visible behavior to the user
 
----
+No new major dependencies without discussion (sqlite3 is Python built-in)
 
-## Expected behavior
-- Running `poetry run pytest --cov=phd_progress_tracker --cov-report=term-missing`
-  locally reports 100% coverage with no missing lines
-- Every push to GitHub triggers CI, which runs tests, generates coverage.xml
-  and uploads to Codecov automatically
-- README.md displays a Codecov badge reflecting current coverage
-- Clicking the badge opens the Codecov dashboard for this repository
+Coverage must remain at 100% after implementation
 
----
+The CLI must continue working throughout and after the migration
 
-## Out of scope
-- Enforcing minimum coverage threshold in CI (e.g. fail if below 100%)
-- Adding any other badges beyond Codecov
-- Modifying any existing tests or source logic beyond the pragma comment
-- Creating a Codecov account — this must be done manually before running /code
+Expected behavior
+User runs any existing command → behavior is identical to today
 
----
+Data persists between sessions in a SQLite database instead of JSON files
 
-## Success criteria
-- [ ] `poetry run pytest --cov=phd_progress_tracker` reports 100% locally
-- [ ] ci.yml pytest step includes `--cov=phd_progress_tracker --cov-report=xml`
-- [ ] CI/CD pipeline passes end-to-end on GitHub after push
-- [ ] Codecov dashboard shows 100% for the repository
-- [ ] README.md displays the Codecov badge with correct repo link
-- [ ] Commit follows `ci(config):` or `docs(readme):` convention
+If JSON data already exists → a migration script converts it to SQLite automatically
 
----
+If the SQLite database does not exist → it is created automatically on first run
 
-## Open questions
-- Does Codecov require a CODECOV_TOKEN secret in GitHub Actions for
-  public repositories, or is the upload automatic?
+Out of scope
+REST API creation (next phase)
+
+Any change to CLI commands or their output
+
+Authentication or multi-user support
+
+Remote hosting or cloud database
+
+Success criteria
+ All 72 tests passing with 100% coverage
+
+ No JSON files used for persistence after migration
+
+ Migration script (JSON → SQLite) working correctly
+
+ CI/CD green after merge
+
+ SQLite database auto-created if it does not exist
+
+Open questions
+What is the exact structure of the current JSON storage? The planner should inspect utils/database.py to map all fields before defining the SQL schema.
