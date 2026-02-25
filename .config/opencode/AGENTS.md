@@ -11,7 +11,9 @@ Every feature follows this pipeline:
 7. /snapshot <slug> → reviewer summarizes → writes SNAPSHOT.md
 
 ## Universal Rules
-- Never commit directly to main
+- Never commit directly to main — always work on a branch
+- Branch naming: type/short-description-in-kebab-case
+- Open a PR to merge — CI must pass before merging
 - Always run tests before committing
 - Every new function needs a test
 - Commits follow: type(scope): description in English
