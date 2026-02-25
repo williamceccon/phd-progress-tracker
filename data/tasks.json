@@ -1,0 +1,35 @@
+[
+  {
+    "id": "73d51a73",
+    "title": "Finalizar o capítulo 4",
+    "description": "Concluir capítulo e revisar",
+    "deadline": "2026-02-24",
+    "status": "COMPLETED",
+    "priority": "HIGH",
+    "category": "RSL",
+    "created_at": "2026-02-18T10:12:42.730157",
+    "completed_at": "2026-02-18T10:23:06.532218"
+  },
+  {
+    "id": "24ad4e96",
+    "title": "Finalizar o capítulo 5",
+    "description": "Concluir capítulo e revisar",
+    "deadline": "2026-02-28",
+    "status": "COMPLETED",
+    "priority": "HIGH",
+    "category": "RSL",
+    "created_at": "2026-02-18T10:13:11.000348",
+    "completed_at": "2026-02-19T22:57:59.438127"
+  },
+  {
+    "id": "129454b7",
+    "title": "Tarefa de Teste Editada",
+    "description": "",
+    "deadline": "2026-04-15",
+    "status": "TODO",
+    "priority": "MEDIUM",
+    "category": "Test",
+    "created_at": "2026-02-19T22:49:13.794889",
+    "completed_at": null
+  }
+]
