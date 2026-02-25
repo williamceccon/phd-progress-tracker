@@ -9,7 +9,6 @@ import typer
 from rich.console import Console
 from rich.table import Table
 from rich.panel import Panel
-from rich.progress import Progress
 from rich.layout import Layout
 from rich import box
 
