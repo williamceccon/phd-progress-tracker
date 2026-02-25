@@ -26,3 +26,4 @@ data/
 .pytest_cache/
 .coverage
 
+coverage.xml
