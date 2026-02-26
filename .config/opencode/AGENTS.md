@@ -20,7 +20,7 @@ Every feature follows this pipeline:
 - Branches follow: type/short-description-in-kebab-case
 
 ## Docs structure
-- docs/specs/BRIEF.md        → human intent (you write this)
+- docs/specs/BRIEF.md        → human intent
 - docs/specs/<slug>/PRD.md   → what to build
 - docs/specs/<slug>/SPEC.md  → how to build it
 - docs/specs/<slug>/TEST_REPORT.md
