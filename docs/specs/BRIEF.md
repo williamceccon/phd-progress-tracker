@@ -1,61 +1,81 @@
-BRIEF — SQLite Migration
+BRIEF — FastAPI Backend
 Date: 2026-02-25
-Slug: sqlite-migration
+Slug: fastapi-backend
 
 What I want
-Replace the current local JSON storage with a SQLite database, keeping the CLI working exactly as it does today. After this feature is done, no JSON files should be used for data persistence.
+Create a REST API using FastAPI that exposes all existing CLI functionality as HTTP endpoints, using the SQLite database already implemented. After this feature is done, all CRUD operations for tasks and milestones must be accessible via HTTP requests, while the CLI continues to work normally.
 
 Why it matters
-The local JSON storage is a bottleneck for the next phase of the project, which involves building a REST API. SQLite is the natural migration step: it's still local, serverless, free, and fully compatible with the upcoming FastAPI layer.
+This is Phase 2 of the web migration. The FastAPI backend is the bridge between the current CLI and the future web UI. Without it, there is no way to build a frontend that reads and writes data.
 
 Context
-Current persistence layer lives in phd_progress_tracker/utils/database.py
+Persistence layer: phd_progress_tracker/utils/database.py (SQLite, already migrated)
 
-Existing models: phd_progress_tracker/models/task.py and phd_progress_tracker/models/milestone.py
+Domain models: phd_progress_tracker/models/task.py and phd_progress_tracker/models/milestone.py
 
-CLI commands are in phd_progress_tracker/cli/commands.py
+CLI commands in phd_progress_tracker/cli/commands.py — must remain untouched
 
-Data is currently stored in local .json files (see utils/database.py for the exact structure)
+Existing enums: status and priority on Task model
 
-Project uses Poetry and has 72 tests with 100% coverage
+Database file: data/phd_tracker.db
+
+Project uses Poetry, Python 3.12, 78 tests with 95% coverage
 
 Constraints
-No CLI command may change its visible behavior to the user
+CLI must continue working after this feature
 
-No new major dependencies without discussion (sqlite3 is Python built-in)
+Coverage must remain at 95% or higher
 
-Coverage must remain at 100% after implementation
+No breaking changes to existing models or database layer
 
-The CLI must continue working throughout and after the migration
+FastAPI and Uvicorn are the only new dependencies allowed
+
+API must run locally on http://localhost:8000
 
 Expected behavior
-User runs any existing command → behavior is identical to today
+GET /tasks → returns list of all tasks
 
-Data persists between sessions in a SQLite database instead of JSON files
+POST /tasks → creates a new task, returns created task
 
-If JSON data already exists → a migration script converts it to SQLite automatically
+PATCH /tasks/{id} → updates a task (title, deadline, status, priority)
 
-If the SQLite database does not exist → it is created automatically on first run
+DELETE /tasks/{id} → deletes a task
+
+GET /milestones → returns list of all milestones
+
+POST /milestones → creates a new milestone
+
+PATCH /milestones/{id} → updates a milestone
+
+DELETE /milestones/{id} → deletes a milestone
+
+GET /dashboard → returns summary stats (total tasks, completed, pending, upcoming deadlines)
+
+GET /docs → FastAPI auto-generated Swagger UI accessible in browser
 
 Out of scope
-REST API creation (next phase)
-
-Any change to CLI commands or their output
+Frontend/UI (next phase)
 
 Authentication or multi-user support
 
-Remote hosting or cloud database
+Cloud deployment
+
+WebSockets or real-time updates
 
 Success criteria
- All 72 tests passing with 100% coverage
+ All existing 78 tests still passing
 
- No JSON files used for persistence after migration
+ API endpoints tested with pytest (new tests added)
 
- Migration script (JSON → SQLite) working correctly
+ Coverage at 95% or higher
+
+ Server starts with poetry run uvicorn phd_progress_tracker.api.main:app --reload
+
+ Swagger UI accessible at http://localhost:8000/docs
+
+ CLI behavior unchanged
 
  CI/CD green after merge
 
- SQLite database auto-created if it does not exist
-
 Open questions
-What is the exact structure of the current JSON storage? The planner should inspect utils/database.py to map all fields before defining the SQL schema.
+Should the API use Pydantic schemas separate from the domain models, or reuse the existing models directly? The planner should evaluate and recommend the best approach.    
