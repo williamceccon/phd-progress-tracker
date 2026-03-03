@@ -1,81 +1,61 @@
-BRIEF — FastAPI Backend
-Date: 2026-02-25
-Slug: fastapi-backend
+BRIEF — Local Web Dashboard (Frontend)
+Date: 2026-03-03
+Slug: local-web-frontend
 
 What I want
-Create a REST API using FastAPI that exposes all existing CLI functionality as HTTP endpoints, using the SQLite database already implemented. After this feature is done, all CRUD operations for tasks and milestones must be accessible via HTTP requests, while the CLI continues to work normally.
+Create a modern, clean web frontend to consume the existing FastAPI backend. It should provide a user-friendly dashboard to manage PhD tasks and milestones, replacing the need to use the CLI while developing locally.
 
 Why it matters
-This is Phase 2 of the web migration. The FastAPI backend is the bridge between the current CLI and the future web UI. Without it, there is no way to build a frontend that reads and writes data.
+This is Phase 3 of the transition from a pure CLI tool to a SaaS platform. Having a visual dashboard allows for better task visualization, easier deadline management, and a more intuitive daily workflow for the user. It validates the REST API built in Phase 2 in a real-world scenario.
 
 Context
-Persistence layer: phd_progress_tracker/utils/database.py (SQLite, already migrated)
+The backend is a fully functional FastAPI app running on http://localhost:8000.
 
-Domain models: phd_progress_tracker/models/task.py and phd_progress_tracker/models/milestone.py
+The API provides endpoints for Tasks (/api/tasks), Milestones (/api/milestones), and Dashboard stats (/api/dashboard).
 
-CLI commands in phd_progress_tracker/cli/commands.py — must remain untouched
+Data is stored locally in SQLite (data/phd_tracker.db).
 
-Existing enums: status and priority on Task model
-
-Database file: data/phd_tracker.db
-
-Project uses Poetry, Python 3.12, 78 tests with 95% coverage
+The Python backend and CLI must remain unchanged.
 
 Constraints
-CLI must continue working after this feature
+Stack: Use Next.js (React) or SvelteKit (let the opencode planner decide based on simplicity and speed for this use case) paired with Tailwind CSS for styling.
 
-Coverage must remain at 95% or higher
+Keep the frontend codebase in a new top-level directory (e.g., web/ or frontend/) to separate it from the Python backend.
 
-No breaking changes to existing models or database layer
+Do not modify the existing Python backend or CLI code.
 
-FastAPI and Uvicorn are the only new dependencies allowed
-
-API must run locally on http://localhost:8000
+Must handle CORS correctly (the backend might need a small update to allow requests from the frontend's local port, usually localhost:3000 or 5173).
 
 Expected behavior
-GET /tasks → returns list of all tasks
+Dashboard View: Shows the summary statistics (total, completed, pending, overdue) and a list of upcoming deadlines.
 
-POST /tasks → creates a new task, returns created task
+Tasks View: A list/board of all tasks where the user can create, edit, mark as complete, or delete tasks.
 
-PATCH /tasks/{id} → updates a task (title, deadline, status, priority)
+Milestones View: A section to track major PhD milestones, showing target dates and completion status.
 
-DELETE /tasks/{id} → deletes a task
-
-GET /milestones → returns list of all milestones
-
-POST /milestones → creates a new milestone
-
-PATCH /milestones/{id} → updates a milestone
-
-DELETE /milestones/{id} → deletes a milestone
-
-GET /dashboard → returns summary stats (total tasks, completed, pending, upcoming deadlines)
-
-GET /docs → FastAPI auto-generated Swagger UI accessible in browser
+Interaction: All actions in the UI must make HTTP requests to the FastAPI backend and update the UI accordingly.
 
 Out of scope
-Frontend/UI (next phase)
+User authentication or login screens (this is still for local, single-user use).
 
-Authentication or multi-user support
+Complex drag-and-drop Kanban boards (keep it simple: lists or simple grids for now).
 
-Cloud deployment
+Cloud deployment or hosting setup.
 
-WebSockets or real-time updates
+Advanced charts or graphs (just display the data clearly).
 
 Success criteria
- All existing 78 tests still passing
+ Frontend project successfully initializes and runs locally.
 
- API endpoints tested with pytest (new tests added)
+ UI successfully fetches and displays data from http://localhost:8000/api/dashboard.
 
- Coverage at 95% or higher
+ User can create, edit, and delete a task via the UI.
 
- Server starts with poetry run uvicorn phd_progress_tracker.api.main:app --reload
+ User can create, edit, and delete a milestone via the UI.
 
- Swagger UI accessible at http://localhost:8000/docs
-
- CLI behavior unchanged
-
- CI/CD green after merge
+ Backend tests still pass (no breaking changes to the API).
 
 Open questions
-Should the API use Pydantic schemas separate from the domain models, or reuse the existing models directly? The planner should evaluate and recommend the best approach.    
+Should the planner add a CORS middleware configuration to the FastAPI main.py to allow the frontend to communicate with it? (Highly likely yes, please include this in the spec).
+
+Which frontend framework (Next.js vs SvelteKit) is better suited for this quick, single-page dashboard MVP?

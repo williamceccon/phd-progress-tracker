@@ -2,3 +2,14 @@ node_modules
 coverage.xml
 package.json
 bun.lock
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+.coverage
+.pytest_cache/
+
+# Data
+data/*.db
