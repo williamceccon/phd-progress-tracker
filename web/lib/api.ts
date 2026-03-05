@@ -50,7 +50,7 @@ export const dashboardApi = {
   /**
    * Fetch dashboard statistics including task counts and upcoming deadlines.
    */
-  getStats: (): Promise<DashboardStats> => fetchApi<DashboardStats>('/api/dashboard'),
+  getStats: (): Promise<DashboardStats> => fetchApi<DashboardStats>('/dashboard'),
 };
 
 // Tasks API functions
@@ -58,18 +58,18 @@ export const tasksApi = {
   /**
    * List all tasks.
    */
-  list: (): Promise<Task[]> => fetchApi<Task[]>('/api/tasks'),
+  list: (): Promise<Task[]> => fetchApi<Task[]>('/tasks'),
 
   /**
    * Get a single task by ID.
    */
-  get: (id: string): Promise<Task> => fetchApi<Task>(`/api/tasks/${id}`),
+  get: (id: string): Promise<Task> => fetchApi<Task>(`/tasks/${id}`),
 
   /**
    * Create a new task.
    */
   create: (task: TaskCreate): Promise<Task> =>
-    fetchApi<Task>('/api/tasks', {
+    fetchApi<Task>('/tasks', {
       method: 'POST',
       body: JSON.stringify(task),
     }),
@@ -78,7 +78,7 @@ export const tasksApi = {
    * Update an existing task.
    */
   update: (id: string, task: TaskUpdate): Promise<Task> =>
-    fetchApi<Task>(`/api/tasks/${id}`, {
+    fetchApi<Task>(`/tasks/${id}`, {
       method: 'PATCH',
       body: JSON.stringify(task),
     }),
@@ -87,7 +87,7 @@ export const tasksApi = {
    * Delete a task.
    */
   delete: (id: string): Promise<void> =>
-    fetchApi<void>(`/api/tasks/${id}`, {
+    fetchApi<void>(`/tasks/${id}`, {
       method: 'DELETE',
     }),
 };
@@ -97,18 +97,18 @@ export const milestonesApi = {
   /**
    * List all milestones.
    */
-  list: (): Promise<Milestone[]> => fetchApi<Milestone[]>('/api/milestones'),
+  list: (): Promise<Milestone[]> => fetchApi<Milestone[]>('/milestones'),
 
   /**
    * Get a single milestone by ID.
    */
-  get: (id: string): Promise<Milestone> => fetchApi<Milestone>(`/api/milestones/${id}`),
+  get: (id: string): Promise<Milestone> => fetchApi<Milestone>(`/milestones/${id}`),
 
   /**
    * Create a new milestone.
    */
   create: (milestone: MilestoneCreate): Promise<Milestone> =>
-    fetchApi<Milestone>('/api/milestones', {
+    fetchApi<Milestone>('/milestones', {
       method: 'POST',
       body: JSON.stringify(milestone),
     }),
@@ -117,7 +117,7 @@ export const milestonesApi = {
    * Update an existing milestone.
    */
   update: (id: string, milestone: MilestoneUpdate): Promise<Milestone> =>
-    fetchApi<Milestone>(`/api/milestones/${id}`, {
+    fetchApi<Milestone>(`/milestones/${id}`, {
       method: 'PATCH',
       body: JSON.stringify(milestone),
     }),
@@ -126,7 +126,7 @@ export const milestonesApi = {
    * Delete a milestone.
    */
   delete: (id: string): Promise<void> =>
-    fetchApi<void>(`/api/milestones/${id}`, {
+    fetchApi<void>(`/milestones/${id}`, {
       method: 'DELETE',
     }),
 };

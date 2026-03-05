@@ -1,61 +1,93 @@
-BRIEF — Local Web Dashboard (Frontend)
-Date: 2026-03-03
-Slug: local-web-frontend
+BRIEF — Web Frontend Tests, Bug Fixes & Version 2.0 Polish
+Date: 2026-03-04
+Slug: web-tests-v2-polish
 
 What I want
-Create a modern, clean web frontend to consume the existing FastAPI backend. It should provide a user-friendly dashboard to manage PhD tasks and milestones, replacing the need to use the CLI while developing locally.
+Fix the 404 bug on the milestones and tasks endpoints, add automated unit tests for the Next.js frontend, add usability tests to validate the full user flow, fix minor UI issues, and officially release the project as version 2.0 with updated documentation.
 
 Why it matters
-This is Phase 3 of the transition from a pure CLI tool to a SaaS platform. Having a visual dashboard allows for better task visualization, easier deadline management, and a more intuitive daily workflow for the user. It validates the REST API built in Phase 2 in a real-world scenario.
+The frontend currently has a critical bug where creating tasks and milestones returns a 404 error, making the core functionality unusable. Beyond the bug fix, the frontend has zero automated tests — which is inconsistent with the high-quality standards established by the backend (95% coverage). Version 2.0 marks the architectural evolution from a pure CLI tool to a full local SaaS platform.
 
 Context
-The backend is a fully functional FastAPI app running on http://localhost:8000.
+Frontend is built with Next.js + Tailwind CSS, running on http://localhost:3000.
 
-The API provides endpoints for Tasks (/api/tasks), Milestones (/api/milestones), and Dashboard stats (/api/dashboard).
+Backend is FastAPI, running on http://localhost:8000.
 
-Data is stored locally in SQLite (data/phd_tracker.db).
+Known bug: POST http://localhost:8000/api/milestones and POST http://localhost:8000/api/tasks return 404. The planner must investigate whether the issue is in the FastAPI router prefix configuration in phd_progress_tracker/api/main.py, the URL base in web/lib/api.ts or web/.env.local, or a trailing slash mismatch between frontend and backend routes.
 
-The Python backend and CLI must remain unchanged.
+The Swagger UI at http://localhost:8000/docs should be used to verify the exact registered route paths and identify the mismatch.
+
+There is a known text inconsistency in MilestoneList.tsx showing "dias para seguir" instead of "dias para frente".
+
+The pyproject.toml and README.md still reflect an old version number.
 
 Constraints
-Stack: Use Next.js (React) or SvelteKit (let the opencode planner decide based on simplicity and speed for this use case) paired with Tailwind CSS for styling.
+Use Vitest + React Testing Library for frontend unit tests.
 
-Keep the frontend codebase in a new top-level directory (e.g., web/ or frontend/) to separate it from the Python backend.
+Do not introduce E2E testing frameworks (Playwright/Cypress) in this phase.
 
-Do not modify the existing Python backend or CLI code.
+Do not break existing Python backend tests (105 tests, 95% coverage).
 
-Must handle CORS correctly (the backend might need a small update to allow requests from the frontend's local port, usually localhost:3000 or 5173).
+Do not add new features — this phase is strictly bug fixing, testing, and polishing.
 
 Expected behavior
-Dashboard View: Shows the summary statistics (total, completed, pending, overdue) and a list of upcoming deadlines.
+Bug fix
 
-Tasks View: A list/board of all tasks where the user can create, edit, mark as complete, or delete tasks.
+User fills the task/milestone form and clicks "Criar" → data is saved successfully and appears in the list immediately.
 
-Milestones View: A section to track major PhD milestones, showing target dates and completion status.
+No 404 errors in the browser console after fix.
 
-Interaction: All actions in the UI must make HTTP requests to the FastAPI backend and update the UI accordingly.
+Usability tests (manual test plan in a TEST_PLAN.md)
+
+The planner should generate a structured manual usability test plan covering:
+
+Dashboard: Loads correctly, stats update after creating/deleting tasks.
+
+Tasks: Create, edit, mark as complete, delete — all flows work end-to-end.
+
+Milestones: Create, edit, mark as achieved, delete — all flows work end-to-end.
+
+Edge cases: Empty states (no tasks/milestones), form validation (required fields), error handling (API offline).
+
+Responsive design: UI works correctly on mobile, tablet, and desktop viewports.
+
+Frontend unit tests
+
+At least 5 component tests covering: TaskForm, MilestoneForm, DashboardStats, StatusBadge, and Modal.
+
+Running npm run test inside web/ executes all tests successfully.
 
 Out of scope
-User authentication or login screens (this is still for local, single-user use).
+E2E tests with Cypress or Playwright.
 
-Complex drag-and-drop Kanban boards (keep it simple: lists or simple grids for now).
+New features or UI changes beyond the known bug fixes.
 
-Cloud deployment or hosting setup.
+Cloud deployment.
 
-Advanced charts or graphs (just display the data clearly).
+Increasing backend coverage beyond current 95%.
 
 Success criteria
- Frontend project successfully initializes and runs locally.
+ POST /api/tasks and POST /api/milestones return 201 with no 404 errors.
 
- UI successfully fetches and displays data from http://localhost:8000/api/dashboard.
+ Creating a task or milestone via the UI saves and displays it correctly.
 
- User can create, edit, and delete a task via the UI.
+ npm run test passes with at least 5 frontend component tests.
 
- User can create, edit, and delete a milestone via the UI.
+ web/tests/TEST_PLAN.md created with full usability test checklist.
 
- Backend tests still pass (no breaking changes to the API).
+ Milestone text inconsistency fixed ("dias para seguir" → "dias para frente").
+
+ web/README.md created with setup instructions.
+
+ Root README.md updated to reflect the new v2.0 architecture (Backend + Frontend setup).
+
+ pyproject.toml version bumped to 2.0.0.
+
+ All 105 backend tests still passing with 95%+ coverage.
+
+ CI/CD green after merge.
 
 Open questions
-Should the planner add a CORS middleware configuration to the FastAPI main.py to allow the frontend to communicate with it? (Highly likely yes, please include this in the spec).
+Is the 404 caused by a prefix mismatch in main.py (routes registered as /tasks but frontend calls /api/tasks) or by a misconfigured base URL in the frontend (web/.env.local)? The planner must inspect both files and identify the root cause before proposing the fix.
 
-Which frontend framework (Next.js vs SvelteKit) is better suited for this quick, single-page dashboard MVP?
+Should the frontend coverage threshold be enforced via Vitest config (e.g., minimum 70%)? (Recommendation: yes, establish a minimum threshold from the start.)

@@ -21,7 +21,7 @@ The Local Web Frontend feature adds a Next.js web application that consumes the 
 ---
 
 ## 2. Files Created/Modified
-
+    
 ### Frontend Files Created
 
 | File | Description |

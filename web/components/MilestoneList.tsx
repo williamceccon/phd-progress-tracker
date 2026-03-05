@@ -147,7 +147,7 @@ export default function MilestoneList({
                           ? `${Math.abs(days)} dias atrasado`
                           : days === 0
                           ? 'Hoje'
-                          : `${days} dias para seguir`}
+                          : `${days} dias para frente`}
                       </span>
                     </div>
                   </div>
